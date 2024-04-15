@@ -5,6 +5,30 @@ import { db } from "./data/db";
 
 function App() {
   const [data, setData] = useState(db);
+  const [cart, setCart] = useState([]);
+  //https://doesitmutate.xyz/ dont mutate the state 
+  function addItem(item){
+    //verify if the item already exist in the state
+    const itemExist = cart.findIndex(e=>e.id===item.id);
+    if (itemExist >= 0) {
+      //exist
+      //update quantity
+      //cart[itemExist].quantity++, WRONG it will mutate the state
+      //how to?
+      //Create a copy of the cart
+      const updatedCart = [...cart];
+      updatedCart[itemExist].quantity++;
+      setCart(updatedCart);//always modify state with setFunction
+
+    } else {
+      //does not exist
+      //adding quantity prop because this item is a cartItem not a guitar
+      //first time quantity is 1
+      item.quantity=1;
+      setCart([...cart,item]);//because if I use push it will mutate the state
+    }
+
+  }
   return (
     <>
       <Header/>
@@ -14,7 +38,11 @@ function App() {
         <div className="row mt-5">
           {
             data.map((e)=>(
-              <Guitar key={e.id} guitar={e}/>
+              <Guitar 
+                key={e.id} 
+                guitar={e}
+                addItem={addItem}
+                />
             ))
           }
         </div>
