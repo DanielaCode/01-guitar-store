@@ -27,12 +27,20 @@ function App() {
       item.quantity=1;
       setCart([...cart,item]);//because if I use push it will mutate the state
     }
-
   }
+
+
+  function removeItem(id){
+    setCart(prevCart=>prevCart.filter((e)=>e.id!==id));
+    //the set function already knows what is in the state
+    //and you can used it via callback as it is avoid and the parameter is the previous cart
+  }
+  
   return (
     <>
       <Header
         cart = {cart}
+        removeItem = {removeItem}
       />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
