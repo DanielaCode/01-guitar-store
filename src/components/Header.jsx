@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 
-function Header() {
+function Header({cart}) {
     return (
         <header className="py-5 header">
             <div className="container-xl">
@@ -28,38 +29,42 @@ function Header() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <img className="img-fluid" src="./public/img/guitarra_02.jpg" alt="imagen guitarra" />
-                                            </td>
-                                            <td>SRV</td>
-                                            <td className="fw-bold">
-                                                $299
-                                            </td>
-                                            <td className="flex align-items-start gap-4">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-dark"
-                                                >
-                                                    -
-                                                </button>
-                                                1
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-dark"
-                                                >
-                                                    +
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    className="btn btn-danger"
-                                                    type="button"
-                                                >
-                                                    X
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        {cart.map(
+                                            (e)=>(
+                                                <tr key={e.id}>
+                                                    <td>
+                                                        <img className="img-fluid" src={`/img/${e.image}.jpg`} alt="imagen guitarra" />
+                                                    </td>
+                                                    <td>{e.name}</td>
+                                                    <td className="fw-bold">
+                                                        ${e.price}
+                                                    </td>
+                                                    <td className="flex align-items-start gap-4">
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-dark"
+                                                        >
+                                                            -
+                                                        </button>
+                                                        {e.quantity}
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-dark"
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button
+                                                            className="btn btn-danger"
+                                                            type="button"
+                                                        >
+                                                            X
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        )}
                                     </tbody>
                                 </table>
 
