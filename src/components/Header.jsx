@@ -1,13 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { useMemo } from "react";
-
-function Header({ cart,removeItem,increaseQuantity,decreaseQuantity,clearCart}) {
-    //state derivado, keeps the logic out of the template, good practice
-    //is not necesary to create multiple states, this is empty still reactive to cart state
-    const isEmpty = useMemo(()=>cart.length <= 0,[cart]);
-    const cartTotal = useMemo( ()=> cart.reduce((total, e) => total + (e.quantity * e.price), 0),[cart]);
-    //useMemo is based on performance, only change if the dependency change(cart), keeps info in cache
+//IMPORTANT!!
+//dont import here usecart custom hook because each instance is a new cart and I just need one for the whole project
+//insted pass the isempty and totalcart derived states via props
+function Header({ cart,removeItem,increaseQuantity,decreaseQuantity,clearCart,isEmpty,cartTotal}) {
     return (
         <header className="py-5 header">
             <div className="container-xl">
