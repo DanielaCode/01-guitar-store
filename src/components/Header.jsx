@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 
 function Header({ cart }) {
+    //state derivado, keeps the logic out of the template, good practice
+    //is not necesary to create multiple states, this is empty still reactive to cart state
+    const isEmpty = cart.length <= 0 ;
     return (
         <header className="py-5 header">
             <div className="container-xl">
@@ -17,7 +20,7 @@ function Header({ cart }) {
                             <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
 
                             <div id="carrito" className="bg-white p-3">
-                                {cart.length <= 0 ? (
+                                {isEmpty? (
                                     <p className="text-center">El carrito esta vacio</p>
                                 ) : (
                                     <table className="w-100 table">
