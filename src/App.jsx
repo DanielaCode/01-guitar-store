@@ -1,11 +1,21 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Guitar from "./components/Guitar"
 import Header from "./components/Header"
 import { db } from "./data/db";
 
 function App() {
-  const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
+
+  const storageInitialCart = () =>{
+    const localStorageCart = localStorage.getItem("cart");
+    return localStorageCart ? JSON.parse(localStorageCart):[];
+  }
+
+  const [data] = useState(db);
+  const [cart, setCart] = useState(storageInitialCart);
+
+  useEffect(()=>{localStorage.setItem("cart",JSON.stringify(cart))},[cart])
+  //manage secundary effects of the change of an state so any time cart change this will happen
+
   //https://doesitmutate.xyz/ dont mutate the state 
   function addItem(item){
     //verify if the item already exist in the state
@@ -29,6 +39,11 @@ function App() {
       item.quantity=1;
       setCart([...cart,item]);//because if I use push it will mutate the state
     }
+    //IMPORTANT!! the localstorage will be fill in the second attend because:
+    //STATE IS ASYNC , so the can set happens after this call to savelocalstorage
+    //otherwise the set will block the render
+    //saveLocalStorage();
+    //better use useEffect
   }
 
 
@@ -67,6 +82,11 @@ function App() {
     });
     setCart(updatedCart);
   }
+
+  // function saveLocalStorage(){
+  //   localStorage.setItem("cart",JSON.stringify(cart));
+  //   //localstorage only save strings
+  // }
 
   return (
     <>
