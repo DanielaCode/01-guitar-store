@@ -3,6 +3,7 @@ import Guitar from "./components/Guitar"
 import Header from "./components/Header"
 import { db } from "./data/db";
 
+//this website will be deploy in netlify
 function App() {
 
   const storageInitialCart = () =>{
