@@ -51,6 +51,10 @@ function App() {
     setCart(updatedCart);
   }
 
+  function clearCart(){
+    setCart([]);
+  }
+
   function decreaseQuantity(id){
     const updatedCart = cart.map((e)=>{
       if(e.id===id && e.quantity > 1){
@@ -71,6 +75,7 @@ function App() {
         removeItem = {removeItem}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
+        clearCart={clearCart}
       />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>

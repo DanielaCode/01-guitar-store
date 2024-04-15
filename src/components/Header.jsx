@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-function Header({ cart,removeItem,increaseQuantity,decreaseQuantity }) {
+function Header({ cart,removeItem,increaseQuantity,decreaseQuantity,clearCart}) {
     //state derivado, keeps the logic out of the template, good practice
     //is not necesary to create multiple states, this is empty still reactive to cart state
     const isEmpty = useMemo(()=>cart.length <= 0,[cart]);
@@ -83,7 +83,9 @@ function Header({ cart,removeItem,increaseQuantity,decreaseQuantity }) {
                                         <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
                                     </>
                                 )}
-                                <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                <button 
+                                    className="btn btn-dark w-100 mt-3 p-2"
+                                    onClick={clearCart}>Vaciar Carrito</button>
                             </div>
                         </div>
                     </nav>
