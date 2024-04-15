@@ -11,6 +11,8 @@ function App() {
     //verify if the item already exist in the state
     const itemExist = cart.findIndex(e=>e.id===item.id);
     if (itemExist >= 0) {
+        if(cart[itemExist].quantity>=5)
+          return;
       //exist
       //update quantity
       //cart[itemExist].quantity++, WRONG it will mutate the state
@@ -35,12 +37,40 @@ function App() {
     //the set function already knows what is in the state
     //and you can used it via callback as it is avoid and the parameter is the previous cart
   }
-  
+
+  function increaseQuantity(id){
+    const updatedCart = cart.map((e)=>{
+      if(e.id===id && e.quantity < 5){
+        return{
+          ...e,
+          quantity:e.quantity+1
+        }
+      }
+      return e;
+    });
+    setCart(updatedCart);
+  }
+
+  function decreaseQuantity(id){
+    const updatedCart = cart.map((e)=>{
+      if(e.id===id && e.quantity > 1){
+        return{
+          ...e,
+          quantity:e.quantity-1
+        }
+      }
+      return e;
+    });
+    setCart(updatedCart);
+  }
+
   return (
     <>
       <Header
         cart = {cart}
         removeItem = {removeItem}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
       />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
